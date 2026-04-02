@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home2U — SMM Стратегия</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #C8102E;
+    --red-dark: #8B0B1F;
+    --red-deep: #5A0713;
+    --red-light: #F8E8EB;
+    --red-mid: #E8B0BA;
+    --black: #111111;
+    --gray-900: #1E1E1E;
+    --gray-800: #2D2D2D;
+    --gray-700: #3D3D3D;
+    --gray-500: #6B6B6B;
+    --gray-400: #9A9A9A;
+    --gray-200: #E5E5E5;
+    --gray-100: #F5F5F5;
+    --gray-50: #FAFAFA;
+    --white: #FFFFFF;
+    --sidebar-w: 220px;
+    --header-h: 64px;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--gray-100);
+    color: var(--black);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── LAYOUT ── */
+  .app { display: flex; height: 100vh; overflow: hidden; }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--black);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+  }
+
+  .sidebar-logo {
+    padding: 22px 20px 18px;
+    border-bottom: 1px solid var(--gray-800);
+  }
+  .logo-mark {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .logo-mark span { color: var(--red); }
+  .logo-sub {
+    font-size: 11px;
+    color: var(--gray-500);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .sidebar-phase {
+    margin: 16px 14px 8px;
+    background: var(--red);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .phase-label { font-size: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+  .phase-name { font-size: 13px; font-weight: 600; color: var(--white); }
+  .phase-period { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 1px; }
+
+  .sidebar-nav { padding: 8px 10px; flex: 1; }
+  .nav-group-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 12px 8px 6px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    color: var(--gray-400);
+    font-size: 13px;
+    font-weight: 400;
+    transition: background 0.15s, color 0.15s;
+    margin-bottom: 2px;
+  }
+  .nav-item:hover { background: var(--gray-900); color: var(--gray-200); }
+  .nav-item.active { background: var(--gray-800); color: var(--white); font-weight: 500; }
+  .nav-item.active .nav-icon { color: var(--red); }
+  .nav-icon { font-size: 15px; width: 18px; text-align: center; flex-shrink: 0; }
+  .nav-badge {
+    margin-left: auto;
+    background: var(--red);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 10px;
+    min-width: 18px;
+    text-align: center;
+  }
+
+  .sidebar-footer {
+    padding: 14px 16px;
+    border-top: 1px solid var(--gray-800);
+  }
+  .progress-label { font-size: 11px; color: var(--gray-500); margin-bottom: 6px; display: flex; justify-content: space-between; }
+  .progress-label span { color: var(--gray-300); font-weight: 500; }
+  .progress-bar { height: 4px; background: var(--gray-800); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--red); border-radius: 2px; transition: width 0.4s ease; }
+
+  /* ── MAIN ── */
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  .topbar {
+    height: var(--header-h);
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .topbar-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black);
+    flex: 1;
+  }
+  .topbar-chip {
+    background: var(--red-light);
+    color: var(--red-dark);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+  }
+  .topbar-chip.gray {
+    background: var(--gray-100);
+    color: var(--gray-500);
+  }
+
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28px;
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 28px 0 12px;
+  }
+  .section-label:first-child { margin-top: 0; }
+
+  /* ── PHASE CARDS ── */
+  .phase-row { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-bottom: 4px; }
+  .phase-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 16px;
+    transition: border-color 0.2s;
+  }
+  .phase-card.current { border-color: var(--red); border-width: 1.5px; }
+  .phase-card.locked { opacity: 0.5; }
+  .pc-num { font-size: 10px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
+  .pc-title { font-size: 14px; font-weight: 600; color: var(--black); margin-bottom: 3px; }
+  .pc-period { font-size: 11px; color: var(--gray-400); margin-bottom: 10px; }
+  .pc-goal { font-size: 12px; color: var(--gray-700); line-height: 1.5; border-top: 1px solid var(--gray-100); padding-top: 10px; }
+
+  /* ── PLATFORM CARDS ── */
+  .plat-row { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+  .plat-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; }
+  .plat-head { padding: 14px 16px 12px; border-bottom: 1px solid var(--gray-100); }
+  .plat-name { font-size: 14px; font-weight: 600; color: var(--black); margin-bottom: 4px; }
+  .plat-tag { display: inline-block; font-size: 10px; padding: 3px 9px; border-radius: 20px; background: var(--red-light); color: var(--red-dark); font-weight: 500; }
+  .plat-body { padding: 14px 16px; }
+  .plat-row-item { font-size: 12px; color: var(--gray-700); margin-bottom: 7px; display: flex; gap: 6px; line-height: 1.4; }
+  .plat-row-item b { color: var(--black); font-weight: 600; flex-shrink: 0; }
+  .dots { display: flex; gap: 3px; margin-top: 10px; }
+  .dot { width: 10px; height: 10px; border-radius: 2px; background: var(--red); }
+  .dot.off { background: var(--gray-200); }
+  .dots-label { font-size: 10px; color: var(--gray-400); margin-top: 4px; }
+
+  /* ── CONTENT TABLE ── */
+  .content-table { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; }
+  .ct-head { display: grid; grid-template-columns: 2fr 100px 90px 90px; background: var(--gray-50); padding: 10px 16px; font-size: 10px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--gray-200); }
+  .ct-row { display: grid; grid-template-columns: 2fr 100px 90px 90px; padding: 11px 16px; border-bottom: 1px solid var(--gray-100); align-items: center; transition: background 0.1s; }
+  .ct-row:last-child { border-bottom: none; }
+  .ct-row:hover { background: var(--gray-50); }
+  .ct-name { font-size: 13px; font-weight: 500; color: var(--black); }
+  .ct-plat { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+  .ct-freq { font-size: 12px; color: var(--gray-500); }
+  .pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px; margin-right: 3px; }
+  .pill-r { background: var(--red-light); color: var(--red-dark); }
+  .pill-s { background: var(--gray-100); color: var(--gray-600, #444); border: 1px solid var(--gray-200); }
+  .pill-st { background: #F3EDE6; color: #7A4F2A; }
+
+  /* ── LOCKED SECTION ── */
+  .lock-banner {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .lock-icon-wrap {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: var(--gray-200);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+  .lock-title { font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 3px; }
+  .lock-sub { font-size: 12px; color: var(--gray-500); line-height: 1.5; }
+  .locked-table { opacity: 0.4; pointer-events: none; }
+
+  /* ── CALENDAR ── */
+  .cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: 6px; }
+  .cal-day-label { font-size: 10px; font-weight: 600; color: var(--gray-400); text-align: center; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 6px; }
+  .cal-cell { min-height: 80px; background: var(--white); border: 1px solid var(--gray-200); border-radius: 10px; padding: 8px; }
+  .cal-cell.today { border-color: var(--red); }
+  .cal-date-num { font-size: 11px; color: var(--gray-400); margin-bottom: 5px; font-weight: 500; }
+  .cal-post { font-size: 10px; font-weight: 500; padding: 3px 6px; border-radius: 5px; margin-bottom: 3px; line-height: 1.3; }
+  .cp-ig { background: #F5EBF8; color: #6B2188; }
+  .cp-fb { background: #E8EFF8; color: #1A3A6B; }
+  .cp-li { background: #E8F2E8; color: #1A5C1A; }
+  .cp-all { background: var(--gray-100); color: var(--gray-500); border: 1px solid var(--gray-200); }
+  .cp-rest { background: var(--gray-50); color: var(--gray-400); }
+  .cal-week-label { font-size: 12px; font-weight: 600; color: var(--black); margin: 24px 0 12px; }
+  .cal-week-label:first-child { margin-top: 0; }
+
+  /* ── METRICS ── */
+  .metrics-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+  .metric-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 16px; }
+  .metric-label { font-size: 10px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+  .metric-val { font-size: 22px; font-weight: 600; color: var(--red); font-family: 'DM Serif Display', serif; line-height: 1; margin-bottom: 6px; }
+  .metric-sub { font-size: 11px; color: var(--gray-500); line-height: 1.4; }
+
+  /* ── HOOKS ── */
+  .hooks-list { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; }
+  .hook-item { padding: 14px 16px; border-bottom: 1px solid var(--gray-100); display: flex; gap: 12px; align-items: flex-start; }
+  .hook-item:last-child { border-bottom: none; }
+  .hook-type { font-size: 9px; font-weight: 700; padding: 4px 9px; border-radius: 20px; flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 1px; }
+  .ht-journey { background: #F3EDE6; color: #7A4F2A; }
+  .ht-curiosity { background: var(--red-light); color: var(--red-dark); }
+  .ht-myth { background: #E8EFF8; color: #1A3A6B; }
+  .ht-pov { background: #E8F2E8; color: #1A5C1A; }
+  .ht-value { background: var(--gray-100); color: var(--gray-700); border: 1px solid var(--gray-200); }
+  .hook-text { font-size: 13px; font-weight: 500; color: var(--black); line-height: 1.4; margin-bottom: 4px; }
+  .hook-sub { font-size: 11px; color: var(--gray-500); line-height: 1.4; }
+
+  /* ── REPURPOSE ── */
+  .rp-flow { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 20px; }
+  .rp-step { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+  .rp-step:last-child { margin-bottom: 0; }
+  .rp-num { width: 26px; height: 26px; border-radius: 50%; background: var(--red); color: var(--white); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .rp-num.gray { background: var(--gray-700); }
+  .rp-text { font-size: 13px; color: var(--gray-700); line-height: 1.6; }
+  .rp-text b { color: var(--black); font-weight: 600; }
+  .rp-connector { margin-left: 13px; height: 14px; border-left: 1.5px dashed var(--gray-300); }
+
+  /* ── CAPTION STRUCTURE ── */
+  .caption-steps { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; }
+  .cs-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 10px; padding: 14px; }
+  .cs-num { font-size: 11px; font-weight: 700; color: var(--red); margin-bottom: 6px; }
+  .cs-title { font-size: 12px; font-weight: 600; color: var(--black); margin-bottom: 4px; }
+  .cs-desc { font-size: 11px; color: var(--gray-500); line-height: 1.5; }
+
+  /* ── CHECKLIST ── */
+  .checklist-wrap { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; }
+  .cl-group-header { padding: 10px 16px; background: var(--gray-50); border-bottom: 1px solid var(--gray-200); font-size: 12px; font-weight: 600; color: var(--black); display: flex; align-items: center; gap: 8px; }
+  .cl-group-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+  .cl-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--gray-100); cursor: pointer; transition: background 0.1s; }
+  .cl-item:last-child { border-bottom: none; }
+  .cl-item:hover { background: var(--gray-50); }
+  .cl-check {
+    width: 18px; height: 18px; border-radius: 5px;
+    border: 1.5px solid var(--gray-300);
+    flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .cl-check.done { background: var(--red); border-color: var(--red); }
+  .cl-checkmark { display: none; }
+  .cl-check.done .cl-checkmark { display: block; }
+  .cl-label { font-size: 13px; color: var(--gray-700); line-height: 1.5; }
+  .cl-label.done { text-decoration: line-through; color: var(--gray-400); }
+
+  /* ── TOOLS ── */
+  .tools-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+  .tool-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 16px; display: flex; gap: 14px; align-items: flex-start; }
+  .tool-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--gray-100); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .tool-name { font-size: 13px; font-weight: 600; color: var(--black); margin-bottom: 3px; }
+  .tool-desc { font-size: 12px; color: var(--gray-500); line-height: 1.5; }
+  .tool-use { font-size: 11px; font-weight: 500; color: var(--red); margin-top: 5px; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+
+  /* ── ANIMATIONS ── */
+  .page.active { animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .phase-card, .plat-card, .metric-card, .tool-card {
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .phase-card:hover, .plat-card:hover, .metric-card:hover, .tool-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--gray-100); margin: 24px 0; }
+  /* ── WEEK TABS ── */
+  .week-tabs { display: flex; gap: 6px; margin-bottom: 20px; }
+  .wtab { padding: 8px 18px; border-radius: 8px; border: 1px solid var(--gray-200); background: var(--white); font-size: 13px; font-weight: 500; color: var(--gray-500); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+  .wtab:hover { border-color: var(--red); color: var(--red); }
+  .wtab.active { background: var(--red); color: var(--white); border-color: var(--red); }
+  .week-block { display: none; }
+  .week-block.active { display: block; animation: fadeIn 0.2s ease; }
+  .week-header { margin-bottom: 16px; }
+  .week-title { font-size: 16px; font-weight: 600; color: var(--black); margin-bottom: 4px; }
+  .week-goal { font-size: 13px; color: var(--gray-500); }
+  .cal-cell.highlight { border-color: var(--red-mid); background: var(--red-light); }
+  .cal-cell.highlight .cal-date-num { color: var(--red-dark); font-weight: 600; }
+  .scripts-section { margin-top: 28px; }
+  .scripts-title { font-size: 10px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+  .script-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 20px; margin-bottom: 16px; }
+  .script-header { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+  .script-day-badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px; background: var(--gray-100); color: var(--gray-700); }
+  .script-format-badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
+  .reel-badge { background: var(--red-light); color: var(--red-dark); }
+  .script-name { font-size: 15px; font-weight: 600; color: var(--black); margin-bottom: 6px; }
+  .script-note { font-size: 12px; color: var(--gray-500); font-style: italic; margin-bottom: 16px; line-height: 1.5; }
+  .script-block { margin-bottom: 14px; }
+  .script-block:last-child { margin-bottom: 0; }
+  .script-block-label { font-size: 10px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .script-text { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 14px 16px; font-size: 13px; color: var(--gray-800); line-height: 1.7; white-space: pre-line; }
+  .caption-text { background: var(--red-light); border: 1px solid var(--red-mid); border-radius: 8px; padding: 14px 16px; font-size: 13px; color: var(--gray-800); line-height: 1.7; white-space: pre-line; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark"><span>Home2U</span></div>
+      <div class="logo-sub">SMM стратегия</div>
+    </div>
+
+    <div class="sidebar-phase">
+      <div class="phase-label">Активна фаза</div>
+      <div class="phase-name">Личен бранд</div>
+      <div class="phase-period">Месец 1–2</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group-label">Стратегия</div>
+      <div class="nav-item active" onclick="goTo('plan', this)">
+        <span class="nav-icon">◈</span> Планиране
+      </div>
+      <div class="nav-item" onclick="goTo('calendar', this)">
+        <span class="nav-icon">◫</span> Календар
+      </div>
+      <div class="nav-item" onclick="goTo('hooks', this)">
+        <span class="nav-icon">◎</span> Hook формули
+        <span class="nav-badge">10</span>
+      </div>
+      <div class="nav-item" onclick="goTo('repurpose', this)">
+        <span class="nav-icon">⟳</span> Repurpose
+      </div>
+
+      <div class="nav-group-label">Настройка</div>
+      <div class="nav-item" onclick="goTo('profile', this)">
+        <span class="nav-icon">◉</span> Профили
+        <span class="nav-badge gray" id="check-badge" style="background:var(--gray-700);color:var(--gray-400);">0</span>
+      </div>
+      <div class="nav-item" onclick="goTo('tools', this)">
+        <span class="nav-icon">◧</span> Инструменти
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="progress-label">Профил готовност <span id="progress-pct">0%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="page-title">Планиране</div>
+      <div class="topbar-chip">Фаза 1 активна</div>
+      <div class="topbar-chip gray">Facebook · Instagram · LinkedIn</div>
+    </div>
+
+    <div class="content">
+
+      <!-- ══ PAGE: PLAN ══ -->
+      <div class="page active" id="page-plan">
+
+        <div class="section-label">Фази на развитие</div>
+        <div class="phase-row">
+          <div class="phase-card current">
+            <div class="pc-num">▶ Фаза 1 — Сега</div>
+            <div class="pc-title">Личен бранд</div>
+            <div class="pc-period">Месец 1–2</div>
+            <div class="pc-goal">Кой си ти? Запознанство с аудиторията. Нула продажби — 100% автентичност. Хората трябва да те опознаят преди да купят от теб.</div>
+          </div>
+          <div class="phase-card locked">
+            <div class="pc-num">Фаза 2</div>
+            <div class="pc-title">Авторитет</div>
+            <div class="pc-period">Месец 3–4</div>
+            <div class="pc-goal">Образователно съдържание, пазарни данни, анализи. Изграждане на доверие като експерт в конкретен район или тип имот.</div>
+          </div>
+          <div class="phase-card locked">
+            <div class="pc-num">Фаза 3</div>
+            <div class="pc-title">Lead generation</div>
+            <div class="pc-period">Месец 5+</div>
+            <div class="pc-goal">Активен CTA, истории на клиенти, затворени сделки. Вече имаш аудитория — сега конвертирай към реални запитвания.</div>
+          </div>
+        </div>
+
+        <div class="section-label">Платформи — роля и честота</div>
+        <div class="plat-row">
+          <div class="plat-card">
+            <div class="plat-head">
+              <div class="plat-name">Facebook</div>
+              <div class="plat-tag">Топла аудитория · Referrals</div>
+            </div>
+            <div class="plat-body">
+              <div class="plat-row-item"><b>Цел:</b> Реактивиране на лични контакти</div>
+              <div class="plat-row-item"><b>Формат:</b> 70% Reels · 30% постове</div>
+              <div class="plat-row-item"><b>Тон:</b> Личен, разговорен</div>
+              <div class="plat-row-item"><b>+Групи:</b> Активно участие</div>
+              <div class="dots">
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot off"></div><div class="dot off"></div>
+              </div>
+              <div class="dots-label">5 пъти / седмица</div>
+            </div>
+          </div>
+          <div class="plat-card">
+            <div class="plat-head">
+              <div class="plat-name">Instagram</div>
+              <div class="plat-tag">Органичен reach · Нови лица</div>
+            </div>
+            <div class="plat-body">
+              <div class="plat-row-item"><b>Цел:</b> Нови последователи, brand awareness</div>
+              <div class="plat-row-item"><b>Формат:</b> 75% Reels · 20% карусели</div>
+              <div class="plat-row-item"><b>Тон:</b> Динамичен, визуален</div>
+              <div class="plat-row-item"><b>Stories:</b> Всеки ден без изключение</div>
+              <div class="dots">
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot off"></div><div class="dot off"></div>
+              </div>
+              <div class="dots-label">5 пъти / седмица</div>
+            </div>
+          </div>
+          <div class="plat-card">
+            <div class="plat-head">
+              <div class="plat-name">LinkedIn</div>
+              <div class="plat-tag">Авторитет · B2B · Инвеститори</div>
+            </div>
+            <div class="plat-body">
+              <div class="plat-row-item"><b>Цел:</b> Партньори, инвеститори, B2B клиенти</div>
+              <div class="plat-row-item"><b>Формат:</b> 50% Reels · 40% текст · 10% статия</div>
+              <div class="plat-row-item"><b>Тон:</b> Професионален, аналитичен</div>
+              <div class="plat-row-item"><b>Фокус:</b> Journey + пазарни анализи</div>
+              <div class="dots">
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot off"></div><div class="dot off"></div><div class="dot off"></div><div class="dot off"></div>
+              </div>
+              <div class="dots-label">3 пъти / седмица</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-label">Съдържание — достъпно сега</div>
+        <div class="content-table">
+          <div class="ct-head">
+            <span>Тип съдържание</span><span>Формат</span><span>Платформа</span><span>Честота</span>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">„Ден 1 като брокер" — journey старт</div><div class="ct-plat">IG · FB · LI</div></div>
+            <div><span class="pill pill-r">Reel</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">Всички</div>
+            <div class="ct-freq">1x · при старт</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">„Защо избрах недвижимите имоти"</div><div class="ct-plat">IG · FB · LI</div></div>
+            <div><span class="pill pill-r">Reel</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">Всички</div>
+            <div class="ct-freq">1x · при старт</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">Зад кулисите — ден на брокера</div><div class="ct-plat">IG · FB</div></div>
+            <div><span class="pill pill-st">Story</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">IG · FB</div>
+            <div class="ct-freq">Всеки ден</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">„Знаеш ли, че..." — пазарен факт</div><div class="ct-plat">IG · FB · LI</div></div>
+            <div><span class="pill pill-r">Reel</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">Всички</div>
+            <div class="ct-freq">1x / седм.</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">Мит срещу реалност в имотите</div><div class="ct-plat">IG · FB</div></div>
+            <div><span class="pill pill-r">Reel</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">IG · FB</div>
+            <div class="ct-freq">1x / седм.</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">Квартален тур / neighborhood guide</div><div class="ct-plat">IG · FB</div></div>
+            <div><span class="pill pill-r">Reel</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">IG · FB</div>
+            <div class="ct-freq">2x / месец</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">„Грешките на купувачите" — топ 5</div><div class="ct-plat">IG · FB · LI</div></div>
+            <div><span class="pill pill-r">Reel</span> <span class="pill pill-s">Карусел</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">Всички</div>
+            <div class="ct-freq">2x / месец</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">Пазарна статистика / инфографика</div><div class="ct-plat">LI · FB · IG</div></div>
+            <div><span class="pill pill-s">Карусел</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">Всички</div>
+            <div class="ct-freq">2x / месец</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">Q&A — отговори на въпроси от Stories</div><div class="ct-plat">IG Stories · FB</div></div>
+            <div><span class="pill pill-r">Reel</span> <span class="pill pill-st">Story</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">IG · FB</div>
+            <div class="ct-freq">2x / месец</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">Тренд аудио / viral hook формат</div><div class="ct-plat">IG · FB</div></div>
+            <div><span class="pill pill-r">Reel</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">IG · FB</div>
+            <div class="ct-freq">1–2x / месец</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">Личен milestone / напредък</div><div class="ct-plat">Всички платформи</div></div>
+            <div><span class="pill pill-r">Reel</span> <span class="pill pill-s">Пост</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">Всички</div>
+            <div class="ct-freq">1x / месец</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">„POV: Търсиш имот с X лева в [район]"</div><div class="ct-plat">IG · FB</div></div>
+            <div><span class="pill pill-r">Reel</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">IG · FB</div>
+            <div class="ct-freq">2x / месец</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="lock-banner" style="margin-bottom:12px;">
+          <div class="lock-icon-wrap">🔒</div>
+          <div>
+            <div class="lock-title">Съдържание, което изисква имоти или сделки</div>
+            <div class="lock-sub">Активирай при първия взет имот или затворена сделка. Тези формати са силни, но изискват реален материал — не ги публикувай без него.</div>
+          </div>
+        </div>
+        <div class="content-table locked-table">
+          <div class="ct-head">
+            <span>Тип съдържание</span><span>Формат</span><span>Платформа</span><span>Кога</span>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">Обиколка на имот (property tour)</div><div class="ct-plat">IG · FB</div></div>
+            <div><span class="pill pill-r">Reel</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">IG · FB</div>
+            <div class="ct-freq">При взет имот</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">Guess the price — имотна игра</div><div class="ct-plat">IG · FB</div></div>
+            <div><span class="pill pill-r">Reel</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">IG · FB</div>
+            <div class="ct-freq">При взет имот</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">Before/After — подготовка на имот</div><div class="ct-plat">IG · FB</div></div>
+            <div><span class="pill pill-r">Reel</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">IG · FB</div>
+            <div class="ct-freq">При взет имот</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">Мнение / отзив на клиент</div><div class="ct-plat">Всички платформи</div></div>
+            <div><span class="pill pill-s">Статично</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">Всички</div>
+            <div class="ct-freq">При сделка</div>
+          </div>
+          <div class="ct-row">
+            <div><div class="ct-name">„Затворихме сделката!" — milestone</div><div class="ct-plat">Всички платформи</div></div>
+            <div><span class="pill pill-r">Reel</span> <span class="pill pill-s">Пост</span></div>
+            <div style="font-size:12px;color:var(--gray-500)">Всички</div>
+            <div class="ct-freq">При сделка</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══ PAGE: CALENDAR ══ -->
+      <div class="page" id="page-calendar">
+
+        <!-- WEEK SELECTOR -->
+        <div class="week-tabs">
+          <button class="wtab active" onclick="showWeek(1,this)">Седмица 1</button>
+          <button class="wtab" onclick="showWeek(2,this)">Седмица 2</button>
+          <button class="wtab" onclick="showWeek(3,this)">Седмица 3</button>
+          <button class="wtab" onclick="showWeek(4,this)">Седмица 4</button>
+        </div>
+
+        <!-- ══ WEEK 1 ══ -->
+        <div class="week-block active" id="week-1">
+          <div class="week-header">
+            <div class="week-title">Седмица 1 — Запознанство</div>
+            <div class="week-goal">Цел: Представи се на света. Кой си, защо си тук, какво ще споделяш.</div>
+          </div>
+
+          <div class="cal-grid">
+            <div class="cal-day-label">Пон</div><div class="cal-day-label">Вт</div><div class="cal-day-label">Ср</div>
+            <div class="cal-day-label">Чет</div><div class="cal-day-label">Пет</div><div class="cal-day-label">Съб</div><div class="cal-day-label">Нед</div>
+
+            <div class="cal-cell highlight">
+              <div class="cal-date-num">Д1</div>
+              <div class="cal-post cp-ig">IG Reel — „Ден 1 като брокер"</div>
+              <div class="cal-post cp-fb">FB Reel — repurpose</div>
+              <div class="cal-post cp-li">LI — repurpose + контекст</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д2</div>
+              <div class="cal-post cp-ig">IG Story — зад кулисите</div>
+              <div class="cal-post cp-fb">FB Story</div>
+            </div>
+            <div class="cal-cell highlight">
+              <div class="cal-date-num">Д3</div>
+              <div class="cal-post cp-ig">IG Reel — „Знаеш ли, че..."</div>
+              <div class="cal-post cp-fb">FB Reel — repurpose</div>
+              <div class="cal-post cp-li">LI текстов пост</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д4</div>
+              <div class="cal-post cp-ig">IG Story — Q&A анкета</div>
+              <div class="cal-post cp-fb">FB Групи — коментари</div>
+            </div>
+            <div class="cal-cell highlight">
+              <div class="cal-date-num">Д5</div>
+              <div class="cal-post cp-ig">IG Reel — Мит vs Реалност</div>
+              <div class="cal-post cp-fb">FB Reel — repurpose</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д6</div>
+              <div class="cal-post cp-ig">IG Story — седмичен recap</div>
+              <div class="cal-post cp-fb">FB пост — личен текст</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д7</div>
+              <div class="cal-post cp-rest">Почивка / планиране</div>
+            </div>
+          </div>
+
+          <!-- SCRIPTS W1 -->
+          <div class="scripts-section">
+            <div class="scripts-title">Скриптове и копита — Седмица 1</div>
+
+            <div class="script-card">
+              <div class="script-header">
+                <div class="script-day-badge">Д1 · Понеделник</div>
+                <div class="script-format-badge reel-badge">Reel · 35–40 сек</div>
+              </div>
+              <div class="script-name">„Ден 1 като брокер в недвижими имоти"</div>
+              <div class="script-note">Снимай се изправен, директно в камерата. Може да си пред входа на офиса или навън.</div>
+
+              <div class="script-block">
+                <div class="script-block-label">СКРИПТ (говориш):</div>
+                <div class="script-text">[Hook — 0–3 сек, TEXT ON SCREEN: „Ден 1 като брокер"]<br><br>„Днес официално започвам работа като брокер на недвижими имоти в Home2U. И исках да го споделя с вас, защото се надявам след година да погледна това видео и да видя колко далеч съм стигнал.<br><br>Казвам се [Име]. Преди [X месеца/години] работех като [предишна работа/учих], но реших, че искам нещо повече. Искам да помагам на хората да намерят дома си — и мисля, че имотите са точното място за това.<br><br>Ще споделям всичко — успехите, грешките, нещата, които научавам. Ако търсиш или продаваш имот — или просто те интересува темата — следи ме. Ще е интересно."</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Instagram:</div>
+                <div class="caption-text">Ден 1. Официално. 🏠<br><br>Казвам се [Име] и от днес съм брокер на недвижими имоти в @home2u.bg<br><br>Ще споделям всичко — успехи, провали и всичко между тях. Ако търсиш имот или просто те интересува темата — добре дошъл в пътуването.<br><br>Кажи ми в коментар — купувач, продавач или просто любопитен? 👇<br><br>#брокер #недвижимиимоти #home2u #деденедвижими #имоти[град]</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Facebook:</div>
+                <div class="caption-text">Днес е ден 1 от новото ми начало.<br><br>От днес официално работя като брокер на недвижими имоти в Home2U. Честно казано — вълнувам се. Но и знам защо го правя.<br><br>Хората прекарват месеци, понякога години, търсейки правилния дом. Искам да бъда човекът, който го прави по-лесно и по-сигурно за тях.<br><br>Ще споделям тук всичко — пазарни новини, съвети, и личния ми опит. Радвам се да сме свързани! 🏠<br><br>#недвижимиимоти #home2u</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — LinkedIn:</div>
+                <div class="caption-text">От днес официално съм брокер на недвижими имоти в Home2U.<br><br>Пътят до тук минава през [кратко: предишна роля/обучение]. Реших, че искам да работя в сфера, където всяка сделка има реално значение за живота на хората.<br><br>Тук ще споделям наблюдения за пазара, поуките от работата с клиенти и честния поглед на начинаещ в индустрията.<br><br>Ако си в сферата на недвижимите имоти или работиш с инвеститори — нека се свържем.</div>
+              </div>
+            </div>
+
+            <div class="script-card">
+              <div class="script-header">
+                <div class="script-day-badge">Д3 · Сряда</div>
+                <div class="script-format-badge reel-badge">Reel · 30–35 сек</div>
+              </div>
+              <div class="script-name">„Знаеш ли, че..." — пазарен факт за [твоя град]</div>
+              <div class="script-note">Стой пред камерата. Можеш да добавиш TEXT ON SCREEN с числото за по-голям impact.</div>
+
+              <div class="script-block">
+                <div class="script-block-label">СКРИПТ (говориш):</div>
+                <div class="script-text">[TEXT ON SCREEN: „Знаеш ли, че..."]<br><br>„Знаеш ли, че средната цена на двустаен апартамент в [квартал/град] в момента е около [X] евро?<br><br>Преди две години беше [Y] евро. Това е ръст от около [Z]% за две години.<br><br>За купувачите — важно е да знаете това СЕГА, преди да решите кога да купите.<br><br>За продавачите — пазарът е добър, но е важно да знаете точната цена на ВАШИЯ имот — тя зависи от много фактори.<br><br>Ако имаш въпрос — пиши ми в коментар или в лично. Безплатна консултация. Винаги."</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Instagram:</div>
+                <div class="caption-text">Средна цена на двустаен в [квартал] = [X]€ 📊<br><br>Преди 2 години → [Y]€<br>Днес → [X]€<br>Ръст → ~[Z]%<br><br>Купувач или продавач — това число има значение за теб.<br><br>Пиши ми ако имаш въпрос. Безплатно. Винаги. 👇<br><br>#имоти[град] #недвижимиимоти #пазарнаинформация #брокер #home2u</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — LinkedIn:</div>
+                <div class="caption-text">Пазарен факт за [град]: средната цена на двустаен апартамент в [квартал] е около [X]€ — ръст от ~[Z]% спрямо 2022 г.<br><br>Какво означава това на практика? Купувачите, които чакат „по-добър момент", може да чакат твърде дълго. Продавачите имат добра позиция, но надценяването остава основната грешка.<br><br>Слагам тези данни тук всяка седмица. Следете за актуални анализи.</div>
+              </div>
+            </div>
+
+            <div class="script-card">
+              <div class="script-header">
+                <div class="script-day-badge">Д5 · Петък</div>
+                <div class="script-format-badge reel-badge">Reel · 35–45 сек</div>
+              </div>
+              <div class="script-name">„Мит vs Реалност: Брокерите взимат пари без да правят нищо"</div>
+              <div class="script-note">Говори уверено. Покажи двете страни — мит (покачи рамене) → реалност (изброй на пръсти). Монтаж: cut между двата момента.</div>
+
+              <div class="script-block">
+                <div class="script-block-label">СКРИПТ (говориш):</div>
+                <div class="script-text">[TEXT ON SCREEN: „МИТ"]<br>„Брокерите взимат 3% само за да отворят вратата на апартамента."<br><br>[CUT — TEXT ON SCREEN: „РЕАЛНОСТ"]<br>„Ето какво реално се случва зад кулисите:<br><br>Едно: Оценка на имота — анализираме десетки сделки за да определим правилна цена.<br>Две: Снимки, описания, публикации в 10+ платформи.<br>Три: Обаждания, огледи, координация между купувач и продавач.<br>Четири: Правни проверки, нотариус, документи.<br>Пет: Преговори — това е може би най-важното.<br><br>Правилният брокер спестява нерви, грешки и реални пари. Лошият — наистина отваря само врати.<br><br>Аз избрах да съм правилният. Ако ти трябва такъв — пиши ми."</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Instagram:</div>
+                <div class="caption-text">„Брокерите взимат пари само за да отворят вратата" 🚪<br><br>Ето какво НЕ се вижда:<br>✔ Оценка и ценови анализ<br>✔ Снимки + публикации в 10+ платформи<br>✔ Десетки обаждания и огледи<br>✔ Правни проверки и документи<br>✔ Преговори — понякога спестяват хиляди<br><br>Правилният брокер е инвестиция, не разход.<br><br>Ти какво мислиш — заслужава ли го комисионната? 👇<br><br>#брокер #мит #недвижимиимоти #home2u #имоти</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Facebook:</div>
+                <div class="caption-text">Чувал съм го много пъти: „Брокерите взимат 3% само за да отворят вратата."<br><br>Разбирам откъде идва тази мисъл. Но нека бъда честен за това какво реално се случва при добрия брокер:<br><br>→ Пазарен анализ и точна оценка на имота<br>→ Професионални снимки и публикации<br>→ Организация на огледи и координация<br>→ Правни проверки — нещо, което мнозина пропускат<br>→ Преговори, при които опитният брокер може да спести повече от комисионната си<br><br>Избрах тази работа, защото вярвам, че добрият брокер добавя реална стойност. Ще доказвам това с дела. 🤝</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ══ WEEK 2 ══ -->
+        <div class="week-block" id="week-2">
+          <div class="week-header">
+            <div class="week-title">Седмица 2 — Задълбочаване</div>
+            <div class="week-goal">Цел: Покажи характер, знания и защо аудиторията трябва да продължи да те следи.</div>
+          </div>
+
+          <div class="cal-grid">
+            <div class="cal-day-label">Пон</div><div class="cal-day-label">Вт</div><div class="cal-day-label">Ср</div>
+            <div class="cal-day-label">Чет</div><div class="cal-day-label">Пет</div><div class="cal-day-label">Съб</div><div class="cal-day-label">Нед</div>
+
+            <div class="cal-cell highlight">
+              <div class="cal-date-num">Д8</div>
+              <div class="cal-post cp-ig">IG Reel — „Защо избрах имотите"</div>
+              <div class="cal-post cp-fb">FB Reel — repurpose</div>
+              <div class="cal-post cp-li">LI — repurpose</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д9</div>
+              <div class="cal-post cp-ig">IG Story — ден на брокера</div>
+              <div class="cal-post cp-fb">FB Story</div>
+            </div>
+            <div class="cal-cell highlight">
+              <div class="cal-date-num">Д10</div>
+              <div class="cal-post cp-ig">IG Reel — „Грешките на купувачите"</div>
+              <div class="cal-post cp-fb">FB Reel — repurpose</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д11</div>
+              <div class="cal-post cp-li">LI карусел — пазарна статистика</div>
+              <div class="cal-post cp-ig">IG карусел — repurpose</div>
+            </div>
+            <div class="cal-cell highlight">
+              <div class="cal-date-num">Д12</div>
+              <div class="cal-post cp-ig">IG Reel — POV формат</div>
+              <div class="cal-post cp-fb">FB Reel — repurpose</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д13</div>
+              <div class="cal-post cp-ig">IG Story — Q&A отговори</div>
+              <div class="cal-post cp-fb">FB пост — личен</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д14</div>
+              <div class="cal-post cp-rest">Планиране</div>
+            </div>
+          </div>
+
+          <div class="scripts-section">
+            <div class="scripts-title">Скриптове и копита — Седмица 2</div>
+
+            <div class="script-card">
+              <div class="script-header">
+                <div class="script-day-badge">Д8 · Понеделник</div>
+                <div class="script-format-badge reel-badge">Reel · 40–45 сек</div>
+              </div>
+              <div class="script-name">„Защо избрах недвижимите имоти"</div>
+              <div class="script-note">Лично, автентично. Не претенциозно. Говори като на приятел — не като на интервю. Може да снимаш навън, в колата, или у дома.</div>
+
+              <div class="script-block">
+                <div class="script-block-label">СКРИПТ (говориш):</div>
+                <div class="script-text">„Преди месеци [или: Преди [X] години] работех като [предишна работа]. Имах стабилна заплата, нормален живот. Но всеки ден ставах сутрин без да се радвам на това, което правя.<br><br>После се запознах с [как/кой те е вдъхновил — колега, случайност, четене]. И нещо се промени в мен.<br><br>Разбрах, че недвижимите имоти не са просто покупка и продажба. Те са може би най-важното финансово решение в живота на всеки човек. Дом за семейството. Инвестиция за бъдещето. Сигурност.<br><br>Исках да бъда човекът, на когото хората се доверяват в този момент. Затова избрах Home2U — защото вярвам в начина, по който работят.<br><br>Все още съм в началото. Но знам точно защо съм тук."</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Instagram:</div>
+                <div class="caption-text">Имах стабилна работа. Добра заплата. Но нещо липсваше. 🤔<br><br>Преди [X месеца] взех решение, което промени всичко — станах брокер на недвижими имоти.<br><br>Не заради парите. Заради хората. Домът е може би най-важното решение в живота — и исках да бъда до правилния човек в точния момент.<br><br>Все още съм в началото. Но знам точно защо съм тук. 🏠<br><br>Ти правил ли си голяма промяна в живота си? Разкажи ми в коментар 👇<br><br>#брокер #newbeginnings #недвижимиимоти #home2u #имоти</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — LinkedIn:</div>
+                <div class="caption-text">Преди [X] месеца напуснах [предишна роля] за да стана брокер на недвижими имоти.<br><br>Много хора ме попитаха защо.<br><br>Отговорът е прост: недвижимите имоти са може би най-значимото финансово решение в живота на всеки човек. Исках да работя в сфера, в която помагам на хората да го вземат правилно.<br><br>Избрах Home2U защото вярвам в тяхната система, екип и стандарти.<br><br>Тук ще документирам пътя — поуките, наблюденията, данните. Ако работиш в сферата или инвестираш в имоти — нека се свържем.</div>
+              </div>
+            </div>
+
+            <div class="script-card">
+              <div class="script-header">
+                <div class="script-day-badge">Д10 · Сряда</div>
+                <div class="script-format-badge reel-badge">Reel · 40–50 сек</div>
+              </div>
+              <div class="script-name">„5 грешки, които купувачите правят" (образователен Reel)</div>
+              <div class="script-note">Изброй на пръсти или добави numbered TEXT ON SCREEN за всяка точка. Говори бързо и ясно — за retention.</div>
+
+              <div class="script-block">
+                <div class="script-block-label">СКРИПТ (говориш):</div>
+                <div class="script-text">[TEXT ON SCREEN: „5 грешки на купувачите"]<br><br>„Ако търсиш апартамент, запази това видео — ще ти трябва.<br><br>Едно: Търсят без ясен бюджет. Преди оглед — разговор с банка. Само така знаеш точно с какво разполагаш.<br><br>Две: Купуват с емоция. Влюбват се в апартамент и забравят да проверят документите, етажа, изложението.<br><br>Три: Не проверяват тежести. Имотът може да има ипотека или възбрана — задължително нотариална проверка.<br><br>Четири: Бързат. Пазарът в [град] е активен, но прибързаното решение е по-скъпо от пропуснатата оферта.<br><br>Пет: Работят без брокер. Спестяват комисионна, но губят от цената и нервите си.<br><br>Запази видеото. И ако имаш въпрос — пиши."</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Instagram:</div>
+                <div class="caption-text">Запази това ако търсиш имот 📌<br><br>5 грешки, които струват скъпо:<br><br>1️⃣ Оглеждаш без одобрен кредит<br>2️⃣ Купуваш с емоция, не с глава<br>3️⃣ Не проверяваш тежести и документи<br>4️⃣ Бързаш или чакаш твърде дълго<br>5️⃣ Нямаш брокер от твоя страна<br><br>Някоя от тях ти ли е позната? 👇<br><br>#купувачи #имоти #недвижимиимоти #брокер #home2u #имоти[град]</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Facebook:</div>
+                <div class="caption-text">Ако търсиш апартамент в момента — прочети това преди следващия оглед.<br><br>В работата си вече съм видял тези грешки повтарят се отново и отново:<br><br>→ Оглеждат без предварително банково одобрение и после губят мечтания апартамент<br>→ Влюбват се в апартамент и забравят да проверят документите<br>→ Пропускат нотариална проверка за тежести (ипотеки, възбрани)<br>→ Бързат под натиск от продавача<br>→ Нямат никой от тяхна страна на масата при преговори<br><br>Ако се разпознаваш в някоя от тях — пиши ми. Безплатна консултация, без задължения. 🤝</div>
+              </div>
+            </div>
+
+            <div class="script-card">
+              <div class="script-header">
+                <div class="script-day-badge">Д12 · Петък</div>
+                <div class="script-format-badge reel-badge">Reel · 30 сек</div>
+              </div>
+              <div class="script-name">POV — „Търсиш 2-стаен в [квартал] с бюджет X"</div>
+              <div class="script-note">Снимай се в движение или пред сградата. Бърз монтаж, забавен тон. TEXT ON SCREEN е задължителен тук.</div>
+
+              <div class="script-block">
+                <div class="script-block-label">СКРИПТ (говориш):</div>
+                <div class="script-text">[TEXT ON SCREEN: „POV: Търсиш 2-стаен в [квартал] с бюджет [X]€"]<br><br>„Добре. Реалността е следната.<br><br>На [X]€ в [квартал] ще намериш двустаен — но вероятно на [висок] етаж без асансьор, или с нужда от ремонт.<br><br>Ако добавиш [+Y]€ — вече се отваря много по-добра картина.<br><br>Ако бюджетът ти е фиксиран — [съседен квартал] предлага много подобно качество на [по-ниска] цена. Погледни там.<br><br>Ето го честният поглед от пазара. Имаш въпрос за твоята конкретна ситуация — пиши ми."</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Instagram:</div>
+                <div class="caption-text">POV: Търсиш 2-стаен в [квартал] с [X]€ 🏠<br><br>Реалната картина:<br>→ На [X]€ — има, но с компромис (етаж, ремонт)<br>→ На [X+Y]€ — много по-добри опции<br>→ Алтернатива: [съседен квартал] на по-ниска цена<br><br>Кажи ми твоите параметри в DM — ще те насоча честно. 👇<br><br>#имоти[квартал] #2стаен #недвижимиимоти #брокер #home2u</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Facebook:</div>
+                <div class="caption-text">Получавам доста запитвания от хора, които търсят двустаен в [квартал].<br><br>Ето честния поглед при бюджет около [X]€:<br>На тази цена намираш — но с компромис по отношение на етаж, състояние или изложение. Ако бюджетът позволява [+Y]€ — изборът се разширява значително. Ако бюджетът е твърд — [съседен квартал] предлага отлично съотношение цена/качество.<br><br>Пиши ми в лично ако искаш да обсъдим твоята конкретна ситуация — без задължения. 🤝</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ══ WEEK 3 ══ -->
+        <div class="week-block" id="week-3">
+          <div class="week-header">
+            <div class="week-title">Седмица 3 — Авторитет и местна идентичност</div>
+            <div class="week-goal">Цел: Позиционирай се като познавач на конкретен район. Започни да изграждаш местна аудитория.</div>
+          </div>
+
+          <div class="cal-grid">
+            <div class="cal-day-label">Пон</div><div class="cal-day-label">Вт</div><div class="cal-day-label">Ср</div>
+            <div class="cal-day-label">Чет</div><div class="cal-day-label">Пет</div><div class="cal-day-label">Съб</div><div class="cal-day-label">Нед</div>
+
+            <div class="cal-cell highlight">
+              <div class="cal-date-num">Д15</div>
+              <div class="cal-post cp-ig">IG Reel — Квартален тур</div>
+              <div class="cal-post cp-fb">FB Reel — repurpose</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д16</div>
+              <div class="cal-post cp-ig">IG Story — зад кулисите</div>
+              <div class="cal-post cp-li">LI текстов пост</div>
+            </div>
+            <div class="cal-cell highlight">
+              <div class="cal-date-num">Д17</div>
+              <div class="cal-post cp-ig">IG Reel — „Чеклист при оглед"</div>
+              <div class="cal-post cp-fb">FB Reel — repurpose</div>
+              <div class="cal-post cp-li">LI карусел — repurpose</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д18</div>
+              <div class="cal-post cp-ig">IG Story — Q&A анкета</div>
+              <div class="cal-post cp-fb">FB Групи</div>
+            </div>
+            <div class="cal-cell highlight">
+              <div class="cal-date-num">Д19</div>
+              <div class="cal-post cp-ig">IG Reel — Trending аудио / viral</div>
+              <div class="cal-post cp-fb">FB Reel — repurpose</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д20</div>
+              <div class="cal-post cp-ig">IG Story — recap</div>
+              <div class="cal-post cp-fb">FB личен пост</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д21</div>
+              <div class="cal-post cp-rest">Почивка</div>
+            </div>
+          </div>
+
+          <div class="scripts-section">
+            <div class="scripts-title">Скриптове и копита — Седмица 3</div>
+
+            <div class="script-card">
+              <div class="script-header">
+                <div class="script-day-badge">Д15 · Понеделник</div>
+                <div class="script-format-badge reel-badge">Reel · 45–60 сек</div>
+              </div>
+              <div class="script-name">Квартален тур — „Живот в [квартал]"</div>
+              <div class="script-note">Снимай НАВЪН в квартала — улици, магазини, паркове, транспорт. Говори с walking монтаж. Покажи реалния живот там, не само имотите.</div>
+
+              <div class="script-block">
+                <div class="script-block-label">СКРИПТ (говориш):</div>
+                <div class="script-text">[Снимай се докато вървиш в квартала]<br><br>„Намираш се в [квартал] — един от районите, за които получавам най-много запитвания в момента. И днес ще ти покажа защо.<br><br>[Покажи транспорт] Метро/трамвай/автобус на [X] минути пеш — централна локация без централна цена.<br><br>[Покажи магазини/заведения] Тук намираш [супермаркет, кафета, ресторанти] — всичко на пеша разстояние.<br><br>[Покажи зелени площи/парк] За семействата — [парк/градина] е на [X] минути.<br><br>[Покажи сгради] Новото строителство тук е активно — цените вървят нагоре.<br><br>Средна цена на двустаен: около [X]€. Тристаен: [Y]€.<br><br>Ако те интересува [квартал] — пиши ми. Знам точно какво се предлага в момента."</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Instagram:</div>
+                <div class="caption-text">Живот в [квартал] — ето какво получаваш 📍<br><br>✔ Метро/транспорт на [X] мин пеш<br>✔ Всичко на пеша разстояние<br>✔ [Парк/зелена зона] за семейства<br>✔ Активно ново строителство<br><br>Среден двустаен: ~[X]€<br>Среден тристаен: ~[Y]€<br><br>Интересуваш се от [квартал]? Пиши ми в DM — знам какво се предлага в момента 👇<br><br>#[квартал] #имоти[квартал] #живот[квартал] #недвижимиимоти #home2u</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Facebook:</div>
+                <div class="caption-text">Разходих се из [квартал] днес — и исках да споделя какво вижда очите на брокер там.<br><br>[Квартал] е един от районите с най-голям интерес от купувачи в момента — и има защо. Добра транспортна връзка, развита инфраструктура, активно строителство и цени, които все още са под централните квартали.<br><br>Средна цена на двустаен: около [X]€. Тристаен: [Y]€.<br><br>Ако търсиш имот в [квартал] или се интересуваш от инвестиционен потенциал там — пиши ми в лично. Имам актуална информация за налични имоти. 🏠</div>
+              </div>
+            </div>
+
+            <div class="script-card">
+              <div class="script-header">
+                <div class="script-day-badge">Д17 · Сряда</div>
+                <div class="script-format-badge reel-badge">Reel · 40–45 сек</div>
+              </div>
+              <div class="script-name">„7 въпроса, които ТРЯБВА да зададеш при оглед"</div>
+              <div class="script-note">Изброй бързо — по 1 ред на точка. TEXT ON SCREEN с номера. Бърз монтаж за retention. Алтернативно: направи го като карусел за IG/LI.</div>
+
+              <div class="script-block">
+                <div class="script-block-label">СКРИПТ (говориш):</div>
+                <div class="script-text">[TEXT ON SCREEN: „Запази това преди следващия оглед"]<br><br>„Ето 7 въпроса, които трябва да зададеш при всеки оглед:<br><br>Едно: Колко години е сградата и кога последно е ремонтирана?<br>Две: Има ли тежести върху имота — ипотека, възбрана?<br>Три: Какви са месечните разходи — ТЕЦ, поддръжка, паркинг?<br>Четири: Защо продава собственикът?<br>Пет: Има ли съседски спорове или проблемни наематели?<br>Шест: Колко бързо трябва да стане сделката?<br>Седем: Има ли строителни нарушения или незаконни преустройства?<br><br>Запази видеото. На следващия оглед — питай. Ще те спаси от много главоболия."</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Instagram:</div>
+                <div class="caption-text">Запази преди следващия оглед 📌<br><br>7 въпроса, които трябва да зададеш:<br><br>1️⃣ Колко е стара сградата? Последен ремонт?<br>2️⃣ Има ли тежести — ипотека, възбрана?<br>3️⃣ Какви са месечните разходи?<br>4️⃣ Защо продава собственикът?<br>5️⃣ Проблемни съседи или наематели?<br>6️⃣ Колко бързо трябва да стане сделката?<br>7️⃣ Незаконни преустройства?<br><br>Добавяш нещо? Пиши в коментар 👇<br><br>#оглед #купувачи #имоти #недвижимиимоти #брокер #home2u</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — LinkedIn:</div>
+                <div class="caption-text">7 въпроса, които всеки купувач трябва да зададе при оглед — но повечето не задават.<br><br>1. Колко е стара сградата и кога последно е ремонтирана?<br>2. Има ли тежести — ипотека или възбрана?<br>3. Какви са реалните месечни разходи?<br>4. Защо продава собственикът и колко бързо иска да стане сделката?<br>5. Има ли проблемни съседи или наематели в сградата?<br>6. Строителни нарушения или незаконни преустройства?<br>7. Какво НЕ харесва собственикът в имота?<br><br>Последният въпрос е най-важен. Отговорът ти казва всичко.</div>
+              </div>
+            </div>
+
+            <div class="script-card">
+              <div class="script-header">
+                <div class="script-day-badge">Д19 · Петък</div>
+                <div class="script-format-badge reel-badge">Reel · 25–30 сек · Trending аудио</div>
+              </div>
+              <div class="script-name">Trending формат — „Очаквания vs Реалност" (имотен пазар)</div>
+              <div class="script-note">Намери trending аудио в IG Reels (стрелка нагоре до аудиото). Адаптирай visual към аудиото. Монтажът е бърз — 2-3 секунди на слайд.</div>
+
+              <div class="script-block">
+                <div class="script-block-label">СКРИПТ / СТРУКТУРА:</div>
+                <div class="script-text">[TEXT ON SCREEN серия — адаптирай към trending аудио]<br><br>Слайд 1: „Очаквания: Ще намеря перфектен апартамент за 2 седмици"<br>Слайд 2: „Реалност: Месец 3, оглед номер 17..."<br><br>Слайд 3: „Очаквания: Ще преговарям и спестя много"<br>Слайд 4: „Реалност: Друг купувач го взе на исканата цена"<br><br>Слайд 5: „Очаквания: Не ми трябва брокер"<br>Слайд 6: „Реалност: Пропуснах тежести в документите"<br><br>[Final frame — твое лице]: „Затова съм тук. Да ти спестя това." 😄</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Instagram:</div>
+                <div class="caption-text">Очаквания vs Реалност на имотния пазар 😅<br><br>Познато? Пиши ми в DM — ще намерим по-бърз път до правилния имот 🏠<br><br>#очаквания #реалност #имоти #брокер #недвижимиимоти #home2u #humor</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Facebook:</div>
+                <div class="caption-text">Малко хумор от имотния пазар — но всичко е истина 😄<br><br>Ако се разпознаваш в поне едно от тях — вероятно ти трябва брокер от твоята страна. Пиши ми! 🤝</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ══ WEEK 4 ══ -->
+        <div class="week-block" id="week-4">
+          <div class="week-header">
+            <div class="week-title">Седмица 4 — Milestone и затваряне на цикъла</div>
+            <div class="week-goal">Цел: Отчети напредъка от първия месец. Покажи учене и растеж. Засили engagement с Q&A.</div>
+          </div>
+
+          <div class="cal-grid">
+            <div class="cal-day-label">Пон</div><div class="cal-day-label">Вт</div><div class="cal-day-label">Ср</div>
+            <div class="cal-day-label">Чет</div><div class="cal-day-label">Пет</div><div class="cal-day-label">Съб</div><div class="cal-day-label">Нед</div>
+
+            <div class="cal-cell highlight">
+              <div class="cal-date-num">Д22</div>
+              <div class="cal-post cp-ig">IG Reel — „1 месец като брокер"</div>
+              <div class="cal-post cp-fb">FB Reel — repurpose</div>
+              <div class="cal-post cp-li">LI — repurpose</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д23</div>
+              <div class="cal-post cp-ig">IG Story — зад кулисите</div>
+              <div class="cal-post cp-fb">FB Story</div>
+            </div>
+            <div class="cal-cell highlight">
+              <div class="cal-date-num">Д24</div>
+              <div class="cal-post cp-ig">IG Reel — „Продаваш имот? Прочети това"</div>
+              <div class="cal-post cp-fb">FB Reel — repurpose</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д25</div>
+              <div class="cal-post cp-li">LI текстов пост — поуки</div>
+              <div class="cal-post cp-ig">IG Story — Q&A</div>
+            </div>
+            <div class="cal-cell highlight">
+              <div class="cal-date-num">Д26</div>
+              <div class="cal-post cp-ig">IG Reel — Q&A видео</div>
+              <div class="cal-post cp-fb">FB Reel — repurpose</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д27</div>
+              <div class="cal-post cp-ig">IG Story — планове за м. 2</div>
+              <div class="cal-post cp-fb">FB личен пост</div>
+            </div>
+            <div class="cal-cell">
+              <div class="cal-date-num">Д28</div>
+              <div class="cal-post cp-rest">Почивка + анализ</div>
+            </div>
+          </div>
+
+          <div class="scripts-section">
+            <div class="scripts-title">Скриптове и копита — Седмица 4</div>
+
+            <div class="script-card">
+              <div class="script-header">
+                <div class="script-day-badge">Д22 · Понеделник</div>
+                <div class="script-format-badge reel-badge">Reel · 45–60 сек</div>
+              </div>
+              <div class="script-name">„1 месец като брокер — честен преглед"</div>
+              <div class="script-note">Най-важното видео от месеца. Бъди 100% честен — покажи и трудностите. Автентичността тук ще донесе най-много engagement и доверие.</div>
+
+              <div class="script-block">
+                <div class="script-block-label">СКРИПТ (говориш):</div>
+                <div class="script-text">[TEXT ON SCREEN: „1 месец като брокер — какво научих"]<br><br>„Преди точно един месец публикувах първото си видео като брокер. Казах, че ще споделям всичко — и ето ме.<br><br>Ето какво се случи за 30 дни:<br><br>[Числа — попълни реалните]: Направих [X] огледа. Говорих с [Y] клиента. [Z] от тях все още търсят правилния имот.<br><br>Научих, че намирането на правилния имот отнема средно [X] седмици — не дни. И че доверието се изгражда бавно, но сигурно.<br><br>Трудното: [Кажи нещо честно — например: Първите откази от клиенти са тежки. Научаването на документите отне повече от очаквах. Имаше ден, в който се усъмних.] Но не съжалявам нито минута.<br><br>Благодаря на всеки, който следи. Месец 2 започва утре — и вече имам по-добра представа как да помагам.<br><br>Ако търсиш имот — пиши ми. Готов съм."</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Instagram:</div>
+                <div class="caption-text">1 месец като брокер. Честен преглед. 🏠<br><br>[X] огледа. [Y] разговора с клиенти. Безброй въпроси.<br><br>Трудното: [едно честно нещо]<br>Хубавото: Вижда се как всеки разговор с клиент ме прави по-добър в работата.<br><br>Благодаря на всеки, който следи. Месец 2 — тръгваме. 🚀<br><br>Имаш въпрос за имот? DM отворен. Винаги. 👇<br><br>#1месец #брокер #journey #недвижимиимоти #home2u</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — LinkedIn:</div>
+                <div class="caption-text">30 дни като брокер на недвижими имоти. Ето честния преглед.<br><br>Числата: [X] огледа, [Y] активни клиенти, [Z] часа в офиса и на терен.<br><br>Най-голямата поука: Хората не купуват имот — те купуват доверие. Имотът е само резултатът от изграденото доверие.<br><br>Трудното: [Едно честно предизвикателство]. Това ме направи по-добър.<br><br>Месец 2 с по-ясна визия и по-добри процеси. Следете за актуализации.</div>
+              </div>
+            </div>
+
+            <div class="script-card">
+              <div class="script-header">
+                <div class="script-day-badge">Д24 · Сряда</div>
+                <div class="script-format-badge reel-badge">Reel · 40–45 сек</div>
+              </div>
+              <div class="script-name">„Продаваш имот? 4 неща, които НЕ трябва да правиш"</div>
+              <div class="script-note">Насочен към продавачи — различна аудитория от купувачите. Говори директно към тях.</div>
+
+              <div class="script-block">
+                <div class="script-block-label">СКРИПТ (говориш):</div>
+                <div class="script-text">[TEXT ON SCREEN: „Продаваш имот? НЕ правей това"]<br><br>„Ако продаваш апартамент в момента — запази това видео.<br><br>Едно: Не определяй цената по съседа. Всеки имот е различен — наличие на ипотека, ремонт, изложение, документи. Вземи реална оценка.<br><br>Две: Не правей огледи без подготовка. Изчисти, освети, разчисти. Първото впечатление е всичко.<br><br>Три: Не приемай първата оферта прибързано — но и не я отхвърляй без анализ. Пазарът се движи бързо.<br><br>Четири: Не продавай без да провериш всички документи предварително. Нотариалните изненади на финала са най-скъпите.<br><br>Продаваш в момента? Пиши ми — ще те посъветвам честно."</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Instagram:</div>
+                <div class="caption-text">Продаваш апартамент? Запази това 📌<br><br>4 грешки, които струват скъпо:<br><br>❌ Цена по съседа (всеки имот е различен)<br>❌ Огледи без подготовка (първо впечатление = всичко)<br>❌ Прибързано приемане на първата оферта<br>❌ Документи без предварителна проверка<br><br>Продаваш в момента? Пиши ми в DM — консултацията е безплатна 👇<br><br>#продавачи #имоти #продажба #недвижимиимоти #брокер #home2u</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Facebook:</div>
+                <div class="caption-text">Ако продаваш имот в момента — прочети преди следващия оглед.<br><br>Четири грешки, които виждам повтарящи се:<br><br>→ Цена, определена по съседния апартамент (игнорирайки разлики в документи, ремонт, ипотека)<br>→ Огледи без подготовка — неподредено, лошо осветление, лични вещи навсякъде<br>→ Прибързано отхвърляне или приемане на оферти<br>→ Правни изненади на финала, защото документите не са проверени предварително<br><br>Ако се готвиш за продажба — пиши ми. Ще се срещнем и ще обсъдим как да получиш максималната цена за имота си. 🤝</div>
+              </div>
+            </div>
+
+            <div class="script-card">
+              <div class="script-header">
+                <div class="script-day-badge">Д26 · Петък</div>
+                <div class="script-format-badge reel-badge">Reel · 40–50 сек</div>
+              </div>
+              <div class="script-name">Q&A видео — отговори на въпроси от аудиторията</div>
+              <div class="script-note">Събери въпроси от Stories (четвъртък) и отговори на 3–4 в едно видео. Това е едно от най-engagement-ващите съдържания — аудиторията се вижда.</div>
+
+              <div class="script-block">
+                <div class="script-block-label">СКРИПТ (структура):</div>
+                <div class="script-text">[TEXT ON SCREEN: „Отговарям на вашите въпроси"]<br><br>„Получих много въпроси тази седмица — ето отговорите:<br><br>[Въпрос 1 — например: „Трябва ли ми брокер ако купувам ново строителство?"]<br>Кратък отговор: Да. При ново строителство има специфики по документите и задатъците, при които брокерът те защитава — без допълнителна такса за теб като купувач.<br><br>[Въпрос 2 — например: „Колко бързо се продава апартамент в момента?"]<br>В [квартал/град] средно [X] до [Y] седмици при правилна цена. При надценяване — може и 6 месеца.<br><br>[Въпрос 3 — например: „Комисионната за сметка на кой е?"]<br>Зависи от договора — обясни накратко модела на Home2U.<br><br>Имаш въпрос? Пиши в коментар или в лично — отговарям на всички."</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Instagram:</div>
+                <div class="caption-text">Отговарям на вашите въпроси 📩<br><br>Тази седмица получих много — избрах 3 от най-честите.<br><br>Имаш въпрос, на който не намираш отговор? Пиши в коментар или DM — отговарям лично 👇<br><br>#Q&A #имоти #недвижимиимоти #брокер #home2u #въпросиотговори</div>
+              </div>
+
+              <div class="script-block">
+                <div class="script-block-label">КОПИТО — Facebook:</div>
+                <div class="caption-text">Тази седмица получих много въпроси — отговарям на най-честите в това видео.<br><br>Ако имаш конкретен въпрос за имот — продажба, покупка или наем — пиши ми в лично. Консултацията е безплатна и без задължения. 🤝</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- METRICS -->
+        <div class="section-label" style="margin-top:32px;">Метрики за проследяване</div>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-label">Reel watch time</div>
+            <div class="metric-val">+50%</div>
+            <div class="metric-sub">Ключов алгоритмичен сигнал — колко от видеото гледат до края</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Engagement rate</div>
+            <div class="metric-val">над 6%</div>
+            <div class="metric-sub">Коментари и Shares са по-важни от Likes</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Reach rate</div>
+            <div class="metric-val">10–15%</div>
+            <div class="metric-sub">Процент от последователи, достигнати с пост</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">DM-и / Profile visits</div>
+            <div class="metric-val">Проследявай</div>
+            <div class="metric-sub">Водят ли Reels до реални запитвания</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══ PAGE: HOOKS ══ -->
+      <div class="page" id="page-hooks">
+
+        <div class="section-label">Hook формули за Reels</div>
+        <div class="hooks-list">
+          <div class="hook-item">
+            <div class="hook-type ht-journey">Journey</div>
+            <div>
+              <div class="hook-text">„Ден [X] като брокер в недвижими имоти — ето какво се случи"</div>
+              <div class="hook-sub">Личен бранд · Автентичност · Работи на всички платформи · Лесен за снимане</div>
+            </div>
+          </div>
+          <div class="hook-item">
+            <div class="hook-type ht-curiosity">Curiosity</div>
+            <div>
+              <div class="hook-text">„3 неща, които никой не ти казва преди да купиш апартамент..."</div>
+              <div class="hook-sub">Образователни Reels · Висок watch time и retention · Силен за IG Explore</div>
+            </div>
+          </div>
+          <div class="hook-item">
+            <div class="hook-type ht-myth">Myth bust</div>
+            <div>
+              <div class="hook-text">„Брокерите взимат 3% без да правят нищо — ето реалността"</div>
+              <div class="hook-sub">Висок engagement · Предизвиква коментари и дискусия · Показва твоята стойност</div>
+            </div>
+          </div>
+          <div class="hook-item">
+            <div class="hook-type ht-pov">POV</div>
+            <div>
+              <div class="hook-text">„POV: Търсиш 2-стаен в [квартал] с бюджет 120,000 евро"</div>
+              <div class="hook-sub">Trending формат · Квартален reach · Лесен за продукция без конкретен имот</div>
+            </div>
+          </div>
+          <div class="hook-item">
+            <div class="hook-type ht-value">Value</div>
+            <div>
+              <div class="hook-text">„Ако търсиш имот, запази това — ще ти трябва"</div>
+              <div class="hook-sub">Share-worthy · Висок save rate · За образователни карусели и инфографики</div>
+            </div>
+          </div>
+          <div class="hook-item">
+            <div class="hook-type ht-curiosity">Curiosity</div>
+            <div>
+              <div class="hook-text">„Колко струва наем в [квартал] в момента? Резултатът ме изненада"</div>
+              <div class="hook-sub">Пазарни данни · Лесен за продукция без имот · Голям local reach</div>
+            </div>
+          </div>
+          <div class="hook-item">
+            <div class="hook-type ht-myth">Myth bust</div>
+            <div>
+              <div class="hook-text">„Не, не трябва да плащаш комисионна като купувач — ето как"</div>
+              <div class="hook-sub">Предизвиква реакция · Educates аудиторията · Позиционира те като защитник</div>
+            </div>
+          </div>
+          <div class="hook-item">
+            <div class="hook-type ht-journey">Journey</div>
+            <div>
+              <div class="hook-text">„Какво научих след [X] огледа за 1 месец"</div>
+              <div class="hook-sub">Показва активност и напредък без нужда от затворена сделка</div>
+            </div>
+          </div>
+          <div class="hook-item">
+            <div class="hook-type ht-value">Value</div>
+            <div>
+              <div class="hook-text">„Чеклист: 7 въпроса, които ТРЯБВА да зададеш при оглед"</div>
+              <div class="hook-sub">Висок save rate · Карусел или текст на Reel · Evergreen съдържание</div>
+            </div>
+          </div>
+          <div class="hook-item">
+            <div class="hook-type ht-pov">POV</div>
+            <div>
+              <div class="hook-text">„POV: Клиентът иска имот, но бюджетът му е под пазара"</div>
+              <div class="hook-sub">Зад кулисите · Автентично · Не изисква конкретен имот или сделка</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-label">Caption структура за всеки Reel</div>
+        <div class="caption-steps">
+          <div class="cs-card">
+            <div class="cs-num">1 — Hook line</div>
+            <div class="cs-title">Повтори hook-а</div>
+            <div class="cs-desc">Първи ред повтаря или разширява hook-а от видеото. Хората четат caption след като hook ги е хванал.</div>
+          </div>
+          <div class="cs-card">
+            <div class="cs-num">2 — Стойност</div>
+            <div class="cs-title">2–3 реда контекст</div>
+            <div class="cs-desc">Допълнителен съвет или информация, която не влиза в 45-секундното видео. Накарай ги да искат повече.</div>
+          </div>
+          <div class="cs-card">
+            <div class="cs-num">3 — Engagement</div>
+            <div class="cs-title">Въпрос към аудиторията</div>
+            <div class="cs-desc">„Ти как мислиш?", „Имал ли си подобна ситуация?", „Тагни приятел, който търси имот". Задължителен за коментари.</div>
+          </div>
+          <div class="cs-card">
+            <div class="cs-num">4 — Хаштагове</div>
+            <div class="cs-title">Различни за платформа</div>
+            <div class="cs-desc">IG: 5–8 релевантни. FB: 2–3 максимум. LI: без или 1–2. Никога IG watermark при spodelяне в FB/LI.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══ PAGE: REPURPOSE ══ -->
+      <div class="page" id="page-repurpose">
+
+        <div class="section-label">Repurpose система — 1 видео, 3 платформи</div>
+        <div class="rp-flow">
+          <div class="rp-step">
+            <div class="rp-num">1</div>
+            <div class="rp-text">Снимаш Reel с телефон (достатъчно) в <b>добра светлина</b> — 30 до 45 секунди. Hook в първите 2–3 секунди. Добавяш субтитри — над 80% гледат без звук.</div>
+          </div>
+          <div class="rp-connector"></div>
+          <div class="rp-step">
+            <div class="rp-num">2</div>
+            <div class="rp-text">Монтираш в <b>CapCut</b> — субтитри, trending аудио, преходи. Качваш нативно в <b>Instagram Reels</b>. Caption: кратък, emoji-friendly, 5–8 хаштага.</div>
+          </div>
+          <div class="rp-connector"></div>
+          <div class="rp-step">
+            <div class="rp-num">3</div>
+            <div class="rp-text">Изтегляш видеото <b>без IG watermark</b> (директно от CapCut или saveig.app). Качваш нативно в <b>Facebook</b>. Caption: по-дълъг, по-разговорен, 2–3 хаштага.</div>
+          </div>
+          <div class="rp-connector"></div>
+          <div class="rp-step">
+            <div class="rp-num">4</div>
+            <div class="rp-text">Същото видео без watermark качваш нативно в <b>LinkedIn</b>. Caption: professional тон, добавен контекст, без хаштаг спам. <b>Никога</b> не споделяй IG линк — нативното видео получава многократно повече reach.</div>
+          </div>
+        </div>
+
+        <div class="section-label">Caption различия по платформа</div>
+        <div class="plat-row">
+          <div class="plat-card">
+            <div class="plat-head">
+              <div class="plat-name">Instagram caption</div>
+              <div class="plat-tag">Кратък и визуален</div>
+            </div>
+            <div class="plat-body">
+              <div class="plat-row-item">1–2 реда hook</div>
+              <div class="plat-row-item">Emoji усилват четимостта</div>
+              <div class="plat-row-item">Въпрос за engagement</div>
+              <div class="plat-row-item">5–8 нишови хаштага</div>
+              <div class="plat-row-item">Линк в bio — не в caption</div>
+            </div>
+          </div>
+          <div class="plat-card">
+            <div class="plat-head">
+              <div class="plat-name">Facebook caption</div>
+              <div class="plat-tag">По-дълъг и разговорен</div>
+            </div>
+            <div class="plat-body">
+              <div class="plat-row-item">3–5 реда разказ</div>
+              <div class="plat-row-item">Emoji OK, но по-малко</div>
+              <div class="plat-row-item">Тагни някой или постни в група</div>
+              <div class="plat-row-item">2–3 хаштага максимум</div>
+              <div class="plat-row-item">CTA: „Пиши ми в лично"</div>
+            </div>
+          </div>
+          <div class="plat-card">
+            <div class="plat-head">
+              <div class="plat-name">LinkedIn caption</div>
+              <div class="plat-tag">Аналитичен и professional</div>
+            </div>
+            <div class="plat-body">
+              <div class="plat-row-item">Hook ред, след това анализ</div>
+              <div class="plat-row-item">Без emoji или минимум</div>
+              <div class="plat-row-item">Свържи с пазарна тенденция</div>
+              <div class="plat-row-item">0–2 хаштага (индустриални)</div>
+              <div class="plat-row-item">CTA: „Свържи се с мен"</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══ PAGE: PROFILE ══ -->
+      <div class="page" id="page-profile">
+
+        <div class="section-label">Профилна оптимизация — направи преди първия пост</div>
+
+        <div class="checklist-wrap" id="checklist">
+          <div class="cl-group-header"><div class="cl-group-dot"></div> Instagram</div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">Bio: „Помагам на хората да намерят дома си в [град] | Брокер @home2u.bg | DM за консултация"</div>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">Снимка на лицето — ясна, усмивка, добра светлина. Не лого, не пейзаж.</div>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">Линк в bio към Home2U профила или Linktree с контакт</div>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">Highlights папки създадени: „За мен", „Съвети", „Пазар" (добавяй постепенно)</div>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">Бизнес акаунт включен в настройките (за аналитики и бъдеща реклама)</div>
+          </div>
+
+          <div class="cl-group-header"><div class="cl-group-dot"></div> Facebook</div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">Работно място: Home2U — Брокер на недвижими имоти (видимост: Публично)</div>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">Cover photo с брандиране — лице + Home2U лого (Canva шаблон, 820x312px)</div>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">„За мен" секция: роля, град, телефон/имейл за контакт</div>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">Присъединен към минимум 3 квартални/имотни FB групи в твоя град</div>
+          </div>
+
+          <div class="cl-group-header"><div class="cl-group-dot"></div> LinkedIn</div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">Headline: „Брокер в Home2U | Помагам на купувачи и продавачи в [град]"</div>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">Банер изображение с Home2U брандиране (1584x396px, Canva)</div>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">„За мен" секция: лична история защо е избрал тази сфера (150–200 думи)</div>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">Skills добавени: Недвижими имоти, Преговори, Клиентски отношения, Пазарен анализ</div>
+          </div>
+          <div class="cl-item" onclick="toggleCheck(this)">
+            <div class="cl-check"><svg class="cl-checkmark" width="10" height="8" viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-label">Добавен Home2U като настоящ работодател с линк към тяхната LI страница</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══ PAGE: TOOLS ══ -->
+      <div class="page" id="page-tools">
+
+        <div class="section-label">Инструменти за продукция</div>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-icon">🎬</div>
+            <div>
+              <div class="tool-name">CapCut</div>
+              <div class="tool-desc">Монтаж на Reels — субтитри, преходи, trending ефекти. Export без watermark директно от приложението.</div>
+              <div class="tool-use">Безплатен · iOS, Android, Desktop</div>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon">🎨</div>
+            <div>
+              <div class="tool-name">Canva</div>
+              <div class="tool-desc">Статични постове, карусели, инфографики, Stories шаблони. Имат готови real estate шаблони.</div>
+              <div class="tool-use">Безплатен план достатъчен · Web, мобилно</div>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon">📅</div>
+            <div>
+              <div class="tool-name">Meta Business Suite</div>
+              <div class="tool-desc">Планиране и scheduling на FB и IG постове предварително. Аналитики за двете платформи на едно място.</div>
+              <div class="tool-use">Безплатен · Изисква свързани акаунти</div>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon">🔍</div>
+            <div>
+              <div class="tool-name">IG Reels Explore</div>
+              <div class="tool-desc">Намирай trending аудио всяка седмица — натисни + на Reel, виж какви аудио-та имат стрелката нагоре. Ползвай ги докато са актуални.</div>
+              <div class="tool-use">Вграден в Instagram · Безплатен</div>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon">💾</div>
+            <div>
+              <div class="tool-name">SnapSave / SaveIG</div>
+              <div class="tool-desc">Изтегляне на IG Reels без watermark за repurpose в FB и LI. Алтернативно: export директно от CapCut.</div>
+              <div class="tool-use">Web-базиран · Безплатен</div>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon">📊</div>
+            <div>
+              <div class="tool-name">LinkedIn Analytics</div>
+              <div class="tool-desc">Следи reach и engagement на всеки пост. Виж коя аудитория реагира — длъжност, индустрия, локация.</div>
+              <div class="tool-use">Вграден · Достъпен след 10+ последователи</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-label">Работен процес — седмично рутина</div>
+        <div class="rp-flow">
+          <div class="rp-step">
+            <div class="rp-num gray">1</div>
+            <div class="rp-text"><b>Неделя вечер (30 мин):</b> Планираш темите за идващата седмица. Избираш trending аудио от IG Explore. Записваш идеи в бележник.</div>
+          </div>
+          <div class="rp-connector"></div>
+          <div class="rp-step">
+            <div class="rp-num gray">2</div>
+            <div class="rp-text"><b>Понеделник–Петък:</b> Снимаш 1 Reel и качваш. Stories всеки ден (30 сек зад кулисите — не изисква монтаж). Участие в FB групи.</div>
+          </div>
+          <div class="rp-connector"></div>
+          <div class="rp-step">
+            <div class="rp-num gray">3</div>
+            <div class="rp-text"><b>Събота (1 ден в месеца):</b> „Batch recording" ден — снимаш 8–10 Reels с различни теми, смяна на дрехи за разнообразие. Планираш за следващите 2 седмици.</div>
+          </div>
+          <div class="rp-connector"></div>
+          <div class="rp-step">
+            <div class="rp-num gray">4</div>
+            <div class="rp-text"><b>Непрекъснато:</b> Отговаряш на коментари и DM-и в рамките на 1 час след публикуване — алгоритъмът го забелязва. DM-ите от Reels третирай като leads.</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  const pages = { plan:'Планиране', calendar:'Календар', hooks:'Hook формули', repurpose:'Repurpose', profile:'Профили', tools:'Инструменти' };
+
+  function showWeek(n, el) {
+    document.querySelectorAll('.week-block').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.wtab').forEach(t => t.classList.remove('active'));
+    document.getElementById('week-' + n).classList.add('active');
+    el.classList.add('active');
+  }
+
+  function goTo(id, el) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    el.classList.add('active');
+    document.getElementById('page-title').textContent = pages[id];
+  }
+
+  function toggleCheck(item) {
+    const check = item.querySelector('.cl-check');
+    const label = item.querySelector('.cl-label');
+    const done = check.classList.contains('done');
+    if (done) { check.classList.remove('done'); label.classList.remove('done'); }
+    else { check.classList.add('done'); label.classList.add('done'); }
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const total = document.querySelectorAll('.cl-check').length;
+    const done = document.querySelectorAll('.cl-check.done').length;
+    const pct = Math.round(done / total * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-pct').textContent = pct + '%';
+    document.getElementById('check-badge').textContent = done;
+    document.getElementById('check-badge').style.background = done > 0 ? 'var(--red)' : 'var(--gray-700)';
+    document.getElementById('check-badge').style.color = done > 0 ? 'white' : 'var(--gray-400)';
+  }
+
+  updateProgress();
+</script>
+</body>
+</html>
